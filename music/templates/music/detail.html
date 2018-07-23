@@ -1,27 +1,31 @@
-<img src="{{ album.album_logo }}" height="300" width="300">
+{% extends 'music/base.html' %}
 
-<h1>{{ album.album_title }}</h1>
-<h2>{{ album.artist }}</h2>
+{% block body %}
+    <img src="{{ album.album_logo }}" height="300" width="300">
 
-{% if error_message %}
-    <p><strong>{{ error_message }}</strong></p>
-{% endif %}
+    <h1>{{ album.album_title }}</h1>
+    <h2>{{ album.artist }}</h2>
 
-<form action="{% url 'music:favourite' album.id %}" method="post">
-    {% csrf_token %}
-    {% for song in album.song_set.all %}
-    <input type="radio"
-           id="song{{ forloop.counter }}"
-           name="song"
-           value="{{ song.id }}" />
-    <label for="song{{ forloop.counter }}">
-        {{ song.song_title }}
-        {% if song.is_favourite %}
-        <img src="https://cdn0.iconfinder.com/data/icons/elite-medical-science/512/star-fill-512.png"
-             alt="star" height="12" width="12" />
-        {% endif %}
-    </label>
-    <br>
-    {% endfor %}
-    <input type="submit" value="Favourite">
-</form>
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+
+    <form action="{% url 'music:favourite' album.id %}" method="post">
+        {% csrf_token %}
+        {% for song in album.song_set.all %}
+        <input type="radio"
+            id="song{{ forloop.counter }}"
+            name="song"
+            value="{{ song.id }}" />
+        <label for="song{{ forloop.counter }}">
+            {{ song.song_title }}
+            {% if song.is_favourite %}
+            <img src="https://cdn0.iconfinder.com/data/icons/elite-medical-science/512/star-fill-512.png"
+                alt="star" height="12" width="12" />
+            {% endif %}
+        </label>
+        <br>
+        {% endfor %}
+        <input type="submit" value="Favourite">
+    </form>
+{% endblock %}
