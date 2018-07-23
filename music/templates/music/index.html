@@ -7,6 +7,20 @@
             {% for album in object_list %}
             <li>
                 <a href="{% url 'music:detail' album.id %}">{{ album.album_title }}</a>
+                <form action="{% url 'music:album-update' album.id %}" method="" style="display: inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="album_id" value="{{ album.id }}">
+                    <button type="submit" class="btn btn-default btn-sm">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </form>
+                <form action="{% url 'music:album-delete' album.id %}" method="POST" style="display: inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="album_id" value="{{ album.id }}">
+                    <button type="submit" class="btn btn-default btn-sm">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
             </li>
             {% endfor %}
         </ul>
