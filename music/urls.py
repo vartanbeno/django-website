@@ -12,5 +12,7 @@ urlpatterns = [
     path('album/add/', views.AlbumCreate.as_view(), name='album-add'),
     re_path(r'album/(?P<pk>[0-9]+)/update/', views.AlbumUpdate.as_view(), name='album-update'),
     re_path(r'album/(?P<pk>[0-9]+)/delete/', views.AlbumDelete.as_view(), name='album-delete'),
+
+    path('register/', views.UserFormView.as_view(), name='register')
     
 ]
